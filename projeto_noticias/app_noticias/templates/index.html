@@ -1,0 +1,76 @@
+{% extends "admin/base.html" %}
+{% block title %}
+    {{ title }}
+    {{ site_title|default:_('Notícias.com') }}
+{% endblock %}
+{% block branding %}
+<div style="width:50%; margin-left:320px; margin-right:auto;">
+    <h1 id="site-name">
+        <a href="/">
+            {{ site_header|default:_('Notícias.com') }}
+        </a>
+    </h1>
+</div>
+{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block sidebar %}
+<div style="width:50%; margin-left:auto; margin-right:auto;">
+    {% if destaque %}
+        <div>
+            <h5 style="color: #447e9b;">
+                {{destaque.categoria}}
+            </h5>
+            <img src="/{{ destaque.imagem }}" alt="Destaque" width="100%" heigth="100%"  align="center">
+            <h4>
+                Por {{destaque.autor}} - {{destaque.data_publicacao}}
+                </h4>
+            <div style="float: right">
+            <h1>
+                <b>
+                    <a href="/noticia/{{ destaque.id }}/">
+                        {{ destaque.titulo }}
+                    </a>
+                </b>
+            </h1>
+
+            <h2>
+                {% if destaque.resumo%}
+                    {{ destaque.resumo}}
+                {% endif %}
+                <br><br><br>
+            </h2>
+            </div>
+
+        </div>
+    {% endif %}
+
+    {% for artigo in artigos %}
+        <hr style="height:1px;border:none;color:#333;background-color:#333;" />
+
+        <h5 style="color: #447e9b;">
+            {{artigo.categoria}}
+        </h5>
+        {% if artigo.imagem %}
+        <div>
+            <img src="{{ artigo.imagem }}" alt="Imagem da notícia" width="200" heigth="200">
+        </div>
+        {% endif%}
+        <h4>
+            Por {{artigo.autor}} - {{artigo.data_publicacao}}
+        </h4>
+        <h1>
+            <b>
+                <a href="/noticia/{{ artigo.id }}/">
+                    {{ artigo.titulo }}
+                </a>
+            </b>
+        </h1>
+        <p>
+            {% if artigo.resumo%}
+                {{ artigo.resumo}}
+            {% endif %}
+        </p>
+        <br><br>
+    {% endfor %}
+</div>
+{% endblock %}
